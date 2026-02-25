@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Wifi, WifiOff, FileText, Zap, Activity, Headphones, MessageSquare, AlertCircle, CheckCircle } from 'lucide-react';
+import { Wifi, WifiOff, FileText, Activity, Headphones, MessageSquare, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { AppConfig } from '../../config/app.config';
 import api from '../../api/axios';
@@ -53,7 +53,6 @@ export const DashboardCliente = () => {
             setSuccessMsg(null);
             setIsPaying(true);
 
-            // Ahora enviamos datosPago (que contiene tipo_pago y opcionalmente monto)
             const response = await api.post('/portal/pagar', datosPago);
 
             if (response.data.url_pago) {
@@ -61,7 +60,7 @@ export const DashboardCliente = () => {
             }
         } catch (err) {
             setError(err.response?.data?.message || "Ocurrió un error al intentar generar el link de pago.");
-            setShowPagoModal(false); // Cerramos el modal si falla
+            setShowPagoModal(false);
         } finally {
             setIsPaying(false);
         }
@@ -105,6 +104,10 @@ export const DashboardCliente = () => {
     const saldoTotal = (Number(perfil.saldo_actual) + Number(perfil.deuda_historica) + Number(perfil.saldo_aplazado));
     const mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long', year: 'numeric' }).format(new Date());
 
+    // --- WHATSAPP DINÁMICO PARA MEJORAR PLAN ---
+    const mensajeWa = `Hola, soy el suscriptor ${perfil.numero_suscriptor}. Me gustaría recibir información para mejorar mi plan de internet actual (${perfil.plan?.nombre || 'Básico'}).`;
+    const linkWhatsappVentas = `https://wa.me/${AppConfig.whatsappNumber}?text=${encodeURIComponent(mensajeWa)}`;
+
     return (
         <div className="dashboard-v2-wrapper">
             <TopNav userName={perfil?.nombre_completo} />
@@ -145,27 +148,14 @@ export const DashboardCliente = () => {
                         </div>
                     </div>
 
-                    <div className="quick-grid">
-                        <div className="qcard" onClick={() => navigate('/portal/red')}>
+                    {/* REDISEÑO DEL QUICK GRID: Una sola tarjeta ancha enfocada en ventas */}
+                    <div className="quick-grid" style={{ gridTemplateColumns: '1fr' }}>
+                        <div className="qcard" onClick={() => navigate('/planes')} title="Ver planes disponibles">
                             <div className="qcard-icon"><FileText size={20} /></div>
-                            <div className="qcard-label">Mi plan</div>
+                            <div className="qcard-label">Mi plan actual</div>
                             <div className="qcard-value">{perfil.plan?.nombre || 'Básico'}</div>
                             <div className="qcard-sub">{formatCurrency(perfil.plan?.precio_mensual)} / mes</div>
-                            <div className="qcard-link">Ver plan &rarr;</div>
-                        </div>
-                        <div className="qcard" onClick={() => navigate('/portal/red')}>
-                            <div className="qcard-icon"><Zap size={20} /></div>
-                            <div className="qcard-label">Velocidad</div>
-                            <div className="qcard-value">&mdash;</div>
-                            <div className="qcard-sub">Ir a herramientas</div>
-                            <div className="qcard-link">Hacer test &rarr;</div>
-                        </div>
-                        <div className="qcard" onClick={() => navigate('/portal/red')}>
-                            <div className="qcard-icon"><Activity size={20} /></div>
-                            <div className="qcard-label">Estado de Red</div>
-                            <div className="qcard-value text-normal">Estable</div>
-                            <div className="qcard-sub">Conexión local</div>
-                            <div className="qcard-link">Ver latencia &rarr;</div>
+                            <div className="qcard-link">Ver todos los planes &rarr;</div>
                         </div>
                     </div>
 

@@ -1,0 +1,87 @@
+.public-nav {
+  padding: 1.25rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white-miranda, #ffffff);
+  border-bottom: 1px solid var(--border-miranda, #e8e4de);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--text-miranda, #1a1a1a);
+    text-decoration: none;
+    
+    .brand-icon {
+      color: var(--accent-miranda, #1d4ed8);
+    }
+  }
+
+  /* Estilos para los enlaces centrales */
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      display: none; /* En pantallas de celular se ocultan para no empalmar el botón derecho */
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--muted-miranda, #8a8a8a);
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      
+      &:hover, &.active {
+        color: var(--accent-miranda, #1d4ed8);
+      }
+    }
+  }
+
+  .btn-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+
+    &.outline {
+      background: var(--surface-2-miranda, #f3f4f6);
+      border: 1px solid var(--border-miranda, #e8e4de);
+      color: var(--text-miranda, #1a1a1a);
+      
+      &:hover {
+        background: var(--border-miranda, #e8e4de);
+      }
+    }
+
+    &.solid {
+      background: var(--accent-miranda, #1d4ed8);
+      color: white;
+      border: none;
+      
+      &:hover {
+        filter: brightness(0.9);
+        transform: translateY(-1px);
+      }
+    }
+  }
+}

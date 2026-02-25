@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Wifi, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import api from '../../api/axios'; // <-- IMPORTANTE: Importar tu API
 import './styles/LoginCliente.scss';
 
 export const LoginCliente = () => {
-    const [credentials, setCredentials] = useState({ suscriptor: '', password: '' });
+    const [credentials, setCredentials] = useState({ numero_suscriptor: '', password: '' });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -17,7 +19,16 @@ export const LoginCliente = () => {
         setError(null);
 
         try {
-            await login(credentials);
+            // 1. Hacemos la petición HTTP real a tu backend
+            const response = await api.post('/auth/cliente/login', credentials);
+            
+            // 2. Extraemos el token real que nos envía el backend
+            const tokenReal = response.data.token;
+            
+            // 3. Lo guardamos usando tu AuthContext
+            login(tokenReal);
+            
+            // 4. Redirigimos
             navigate('/portal/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || "Credenciales incorrectas");
@@ -47,8 +58,8 @@ export const LoginCliente = () => {
                         <input 
                             type="text" 
                             placeholder="Ej: MN-1058"
-                            value={credentials.suscriptor}
-                            onChange={(e) => setCredentials({...credentials, suscriptor: e.target.value})}
+                            value={credentials.numero_suscriptor}
+                            onChange={(e) => setCredentials({...credentials, numero_suscriptor: e.target.value})}
                             required
                         />
                     </div>

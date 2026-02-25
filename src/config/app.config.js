@@ -10,6 +10,7 @@ export const AppConfig = {
     
     // Datos de Contacto Publicos
     supportPhone: "934-110-1635", // Cambiar por el real
+    whatsappNumber: "529341101635",
     supportEmail: "soporte@mirandanet.com",
     
     // Redes Sociales (Para el footer de la landing page)

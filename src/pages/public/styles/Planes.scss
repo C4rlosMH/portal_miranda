@@ -1,0 +1,169 @@
+.planes-public-page {
+  min-height: 100vh;
+  background-color: var(--bg-miranda, #f5f3ef);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-miranda, #1a1a1a);
+
+  /* --- BARRA DE NAVEGACIÓN --- */
+  .public-nav {
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white-miranda, #ffffff);
+    border-bottom: 1px solid var(--border-miranda, #e8e4de);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-miranda);
+      
+      .brand-icon {
+        color: var(--accent-miranda, #1d4ed8);
+      }
+    }
+
+    .btn-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+
+      &.outline {
+        background: var(--surface-2-miranda, #f3f4f6);
+        border: 1px solid var(--border-miranda);
+        color: var(--text-miranda);
+        
+        &:hover {
+          background: var(--border-miranda);
+        }
+      }
+
+      &.solid {
+        background: var(--accent-miranda, #1d4ed8);
+        color: white;
+        border: none;
+        
+        &:hover {
+          filter: brightness(0.9);
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+
+  /* --- CONTENIDO PRINCIPAL --- */
+  .planes-main {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+    text-align: center;
+
+    .main-title {
+      font-size: 2.8rem;
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text-miranda);
+      letter-spacing: -0.02em;
+    }
+
+    .main-subtitle {
+      color: var(--muted-miranda, #8a8a8a);
+      margin-bottom: 4rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    /* --- GRID DE TARJETAS --- */
+    .planes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+
+      .plan-card {
+        background: var(--white-miranda, #ffffff);
+        padding: 2.5rem 2rem;
+        border-radius: 24px;
+        border: 1px solid var(--border-miranda);
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        display: flex;
+        flex-direction: column;
+
+        &:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+          border-color: var(--accent-miranda);
+        }
+
+        .plan-name {
+          font-size: 1.1rem;
+          color: var(--accent-miranda, #1d4ed8);
+          margin-bottom: 0.75rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .plan-price {
+          font-size: 2.8rem;
+          font-weight: 800;
+          margin-bottom: 1.5rem;
+          color: var(--text-miranda);
+          font-family: 'Fraunces', serif;
+          
+          span {
+            font-size: 1rem;
+            color: var(--muted-miranda);
+            font-weight: 500;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+          }
+        }
+
+        .plan-desc {
+          font-weight: 600;
+          margin-bottom: 2.5rem;
+          color: var(--text-miranda);
+          line-height: 1.6;
+          font-size: 0.95rem;
+          flex-grow: 1; /* Empuja el botón hacia abajo si las descripciones tienen distinto largo */
+        }
+
+        .btn-cta {
+          width: 100%;
+          background: var(--text-miranda, #1a1a1a);
+          color: var(--bg-miranda, #f5f3ef);
+          border: none;
+          padding: 1.1rem;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 0.95rem;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+          transition: background 0.2s, transform 0.2s;
+
+          &:hover {
+            background: var(--accent-miranda, #1d4ed8);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}

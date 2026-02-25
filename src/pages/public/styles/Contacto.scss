@@ -1,0 +1,236 @@
+.contacto-public-page {
+  min-height: 100vh;
+  background-color: var(--bg-miranda, #f5f3ef);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: var(--text-miranda, #1a1a1a);
+
+  /* --- REUTILIZAMOS LA BARRA DE NAVEGACIÓN DE PLANES --- */
+  .public-nav {
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white-miranda, #ffffff);
+    border-bottom: 1px solid var(--border-miranda, #e8e4de);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-miranda);
+      text-decoration: none;
+      .brand-icon {
+        color: var(--accent-miranda, #1d4ed8);
+      }
+    }
+
+    .btn-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      &.outline {
+        background: var(--surface-2-miranda, #f3f4f6);
+        border: 1px solid var(--border-miranda);
+        color: var(--text-miranda);
+        &:hover {
+          background: var(--border-miranda);
+        }
+      }
+      &.solid {
+        background: var(--accent-miranda, #1d4ed8);
+        color: white;
+        border: none;
+        &:hover {
+          filter: brightness(0.9);
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+
+  /* --- CONTENEDOR PRINCIPAL --- */
+  .contacto-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 4rem;
+      h1 {
+        font-size: 2.8rem;
+        font-family: "Fraunces", serif;
+        font-weight: 800;
+        color: var(--text-miranda);
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+      }
+      p {
+        color: var(--muted-miranda, #8a8a8a);
+        font-size: 1.1rem;
+        font-weight: 500;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      @media (max-width: 850px) {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+  }
+
+  /* --- TARJETAS DE CONTACTO DIRECTO --- */
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .method-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: var(--white-miranda);
+      padding: 1.5rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-miranda);
+      text-decoration: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+        border-color: var(--accent-miranda);
+      }
+
+      .icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        &.whatsapp {
+          background: #dcfce7;
+          color: #16a34a;
+        }
+        &.phone {
+          background: #e0e7ff;
+          color: #4f46e5;
+        }
+        &.email {
+          background: #fee2e2;
+          color: #dc2626;
+        }
+        &.location {
+          background: #f3f4f6;
+          color: #4b5563;
+        }
+      }
+
+      .info {
+        h3 {
+          font-size: 1.05rem;
+          font-weight: 800;
+          color: var(--text-miranda);
+          margin-bottom: 0.25rem;
+        }
+        p {
+          font-size: 0.9rem;
+          color: var(--muted-miranda);
+          font-weight: 500;
+          margin-bottom: 0.4rem;
+        }
+        .action-text {
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: var(--text-miranda);
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+      }
+    }
+  }
+
+  /* --- FORMULARIO DE CONTACTO --- */
+  .contact-form-wrapper {
+    background: var(--white-miranda);
+    padding: 2.5rem;
+    border-radius: 24px;
+    border: 1px solid var(--border-miranda);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+
+    h2 {
+      font-family: "Fraunces", serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+      label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.85rem 1.1rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-miranda);
+        background: var(--bg-miranda);
+        font-family: inherit;
+        font-size: 0.95rem;
+        outline: none;
+        transition: all 0.2s;
+        &:focus {
+          border-color: var(--accent-miranda);
+          box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+          background: var(--white-miranda);
+        }
+      }
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      background: var(--text-miranda);
+      color: var(--bg-miranda);
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      &:hover {
+        background: var(--accent-miranda);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
