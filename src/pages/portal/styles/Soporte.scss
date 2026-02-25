@@ -31,29 +31,60 @@
     }
 
     .back-btn {
-      display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border-radius: 10px;
-      border: 1px solid var(--border-miranda); background: var(--white-miranda);
-      cursor: pointer; color: var(--muted-miranda); transition: all 0.15s;
-      &:hover { background: var(--bg-miranda); color: var(--text-miranda); border-color: var(--muted-miranda); }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border-miranda);
+      background: var(--white-miranda);
+      cursor: pointer;
+      color: var(--muted-miranda);
+      transition: all 0.15s;
+      &:hover {
+        background: var(--bg-miranda);
+        color: var(--text-miranda);
+        border-color: var(--muted-miranda);
+      }
     }
 
     .page-title {
-      font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-miranda); margin: 0;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-miranda);
+      margin: 0;
       white-space: nowrap; /* Evita que el titulo se rompa */
     }
 
     .btn-primary {
-      display: flex; align-items: center; gap: 0.4rem; padding: 0.65rem 1.25rem;
-      background: var(--accent-miranda); color: white; border: none; border-radius: 10px;
-      font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.15s, transform 0.15s; 
-      
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.25rem;
+      background: var(--accent-miranda);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition:
+        background 0.15s,
+        transform 0.15s;
+
       /* --- LA SOLUCIÓN AQUÍ --- */
-      width: fit-content; 
+      width: fit-content;
       white-space: nowrap;
 
-      &:hover:not(:disabled) { filter: brightness(0.9); transform: translateY(-1px); }
-      &:active:not(:disabled) { transform: translateY(0); }
+      &:hover:not(:disabled) {
+        filter: brightness(0.9);
+        transform: translateY(-1px);
+      }
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Agregamos useNavigate
 import { 
     Zap, Wrench, Signal, CreditCard, Clock, 
     Gamepad2, Laptop, Tv, Smartphone,
@@ -8,8 +8,6 @@ import {
 import { AppConfig } from '../../config/app.config';
 import api from '../../api/axios';
 import './styles/Landing.scss';
-
-
 
 export const Landing = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -20,10 +18,10 @@ export const Landing = () => {
     const [toastMsg, setToastMsg] = useState('');
     const [logoClicks, setLogoClicks] = useState(0);
     const observerRef = useRef(null);
+    const navigate = useNavigate(); // Instanciamos navigate
 
     // Scroll Navbar
     useEffect(() => {
-
         console.log(
             "%c¡Hola! %c\n¿Buscando errores en el código? Si eres así de curioso, seguro apreciarás un proveedor de internet que no te miente. Contrata Miranda Net.", 
             "color: #1a45c4; font-size: 24px; font-weight: bold;", 
@@ -68,13 +66,11 @@ export const Landing = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Obtenemos los planes (que ahora traen plan.cantidad_clientes desde el backend)
                 const resPlanes = await api.get('/planes/publicos');
                 setPlanes(resPlanes.data);
 
-                // Obtenemos los clientes activos reales
                 try {
-                    const resStats = await api.get('/planes/stats-publicos'); // <-- Actualizado a /planes/
+                    const resStats = await api.get('/planes/stats-publicos'); 
                     if(resStats.data) setStats(resStats.data);
                 } catch (e) {
                     console.error("No se pudieron cargar las estadísticas públicas", e);
@@ -96,13 +92,6 @@ export const Landing = () => {
         }).format(amount || 0);
     };
 
-    const linkWhatsapp = (plan = '') => {
-        const msg = plan 
-            ? `Hola, me interesa contratar el plan ${plan}.` 
-            : 'Hola, me gustaría recibir información sobre el servicio de internet.';
-        return `https://wa.me/${AppConfig.whatsappNumber}?text=${encodeURIComponent(msg)}`;
-    };
-
     // Lógica para enviar el número de consulta por WhatsApp
     const handleCtaSubmit = () => {
         if (!phoneInput.trim()) return;
@@ -111,12 +100,14 @@ export const Landing = () => {
         setPhoneInput('');
     };
 
-    // Determinar dinámicamente el plan más popular
-    // Asume que tu backend envía una propiedad como "cantidad_clientes" en cada plan
+    // Lógica para redirigir a la página de contacto pasando el plan seleccionado
+    const handleContratarClick = (planNombre) => {
+        navigate('/contacto', { state: { planSeleccionado: planNombre } });
+    };
+
     const maxClientes = planes.length > 0 ? Math.max(...planes.map(p => p.cantidad_clientes || 0)) : 0;
 
     const handleSecretClick = (e) => {
-        // Evitamos que el link te lleve a la parte de arriba si solo estás haciendo el easter egg
         if (logoClicks < 4) e.preventDefault(); 
         
         setLogoClicks(prev => prev + 1);
@@ -124,7 +115,7 @@ export const Landing = () => {
         if (logoClicks + 1 === 5) {
             setToastMsg('Modo Dios activado: Velocidad ilimitada (mentira, no vendemos humo).');
             setTimeout(() => setToastMsg(''), 4500);
-            setLogoClicks(0); // Reiniciamos el contador
+            setLogoClicks(0); 
         }
     };
 
@@ -140,6 +131,9 @@ export const Landing = () => {
                     <li><a href="#features">Beneficios</a></li>
                     <li><a href="#planes">Planes</a></li>
                     <li><a href="#como-funciona">Cómo funciona</a></li>
+                    {/* Nuevos enlaces agregados aquí */}
+                    <li><a href="#trabajos">Trabajos</a></li>
+                    <li><a href="#contacto">Cobertura</a></li>
                     <li><Link to="/portal/login" className="nav-cta">Mi Portal</Link></li>
                 </ul>
             </nav>
@@ -179,23 +173,17 @@ export const Landing = () => {
                 <div className="hero-right">
                     <div className="hero-visual">
                         <div className="hv-circle"></div>
-
-                        {/* Elemento central: Representación del equipo */}
                         <div className="hv-center-icon">
                             <Router size={56} color="var(--accent)" strokeWidth={1.5} />
                         </div>
-
-                        {/* Tarjetas de promesas reales */}
                         <div className="hv-card hv-card-status" style={{ top: '15%', left: '0' }}>
                             <div className="status-green-dot"></div>
                             <span>Red operativa en Ramonal</span>
                         </div>
-
                         <div className="hv-card hv-card-ping" style={{ bottom: '15%', left: '5%' }}>
                             <div className="card-label">Soporte</div>
                             <div className="card-val" style={{ fontSize: '1.1rem', color: 'var(--ink)' }}>Atención local</div>
                         </div>
-
                         <div className="hv-card hv-card-up" style={{ top: '25%', right: '0' }}>
                             <div className="card-label">Estabilidad</div>
                             <div className="card-val" style={{ fontSize: '1.1rem', color: 'var(--ink)' }}>Monitoreo 24/7</div>
@@ -274,7 +262,6 @@ export const Landing = () => {
                             <p style={{ color: 'white', textAlign: 'center', width: '100%', gridColumn: '1 / -1' }}>Cargando planes disponibles...</p>
                         ) : (
                             planes.map((plan) => {
-                                // Comprueba si este plan es el que tiene más clientes
                                 const isPopular = plan.cantidad_clientes && plan.cantidad_clientes === maxClientes && maxClientes > 0;
                                 
                                 return (
@@ -289,7 +276,7 @@ export const Landing = () => {
                                             <li>Monitoreo de red</li>
                                             <li>Acceso al portal de clientes</li>
                                         </ul>
-                                        <button onClick={() => window.open(linkWhatsapp(plan.nombre))} className="pd-btn">
+                                        <button onClick={() => handleContratarClick(plan.nombre)} className="pd-btn">
                                             Contratar
                                         </button>
                                     </div>
@@ -345,7 +332,6 @@ export const Landing = () => {
                 </div>
 
                 <div className="social-frame-container reveal">
-                    {/* Plugin oficial de Facebook vinculado a app.config.js */}
                     <iframe 
                         src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(AppConfig.socialLinks.facebook)}&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId`}
                         width="500" 

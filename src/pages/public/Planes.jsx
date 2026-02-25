@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { ArrowRight } from 'lucide-react';
 import { AppConfig } from '../../config/app.config';
 import api from '../../api/axios';
@@ -9,6 +10,7 @@ import './styles/Planes.scss';
 export const Planes = () => {
     const [planesDisponibles, setPlanesDisponibles] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate(); // Instanciar navigate
 
     useEffect(() => {
         const fetchPlanes = async () => {
@@ -32,8 +34,9 @@ export const Planes = () => {
     };
 
     const contactarVentas = (planNombre) => {
-        const mensaje = `Hola, me interesa contratar o cambiarme al plan ${planNombre}.`;
-        window.open(`https://wa.me/${AppConfig.whatsappNumber}?text=${encodeURIComponent(mensaje)}`, '_blank');
+        // Redirige a la página de contacto. 
+        // Pasamos el nombre del plan en el estado por si quieres autocompletar un formulario allí.
+        navigate('/contacto', { state: { planSeleccionado: planNombre } });
     };
 
     return (
