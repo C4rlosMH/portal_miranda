@@ -1,17 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Wifi, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import { Wifi, ArrowRight, Loader2, AlertCircle, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import api from '../../api/axios'; // <-- IMPORTANTE: Importar tu API
+import api from '../../api/axios'; 
 import './styles/LoginCliente.scss';
 
 export const LoginCliente = () => {
     const [credentials, setCredentials] = useState({ numero_suscriptor: '', password: '' });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [secretUnlocked, setSecretUnlocked] = useState(false);
     
     const { login } = useAuth();
     const navigate = useNavigate();
+
+    // Easter Egg: Escribir "cerohumo"
+    useEffect(() => {
+        const secretCode = ['m', 'i', 'r', 'a', 'n', 'd', 'a'];
+        let secretIndex = 0;
+
+        const handleKeyDown = (e) => {
+            // Convertimos la tecla a minúscula para que funcione incluso con Bloq Mayus activado
+            const key = e.key.toLowerCase();
+            
+            if (key === secretCode[secretIndex]) {
+                secretIndex++;
+                if (secretIndex === secretCode.length) {
+                    setSecretUnlocked(true);
+                    // Ocultamos el mensaje después de 5 segundos
+                    setTimeout(() => setSecretUnlocked(false), 5000);
+                    secretIndex = 0;
+                }
+            } else {
+                secretIndex = 0;
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,16 +46,9 @@ export const LoginCliente = () => {
         setError(null);
 
         try {
-            // 1. Hacemos la petición HTTP real a tu backend
             const response = await api.post('/auth/cliente/login', credentials);
-            
-            // 2. Extraemos el token real que nos envía el backend
             const tokenReal = response.data.token;
-            
-            // 3. Lo guardamos usando tu AuthContext
             login(tokenReal);
-            
-            // 4. Redirigimos
             navigate('/portal/dashboard');
         } catch (err) {
             setError(err.response?.data?.message || "Credenciales incorrectas");
@@ -39,6 +59,16 @@ export const LoginCliente = () => {
 
     return (
         <div className="login-page">
+            {/* Botón para regresar al Landing Page */}
+            <Link to="/" className="back-link-fixed">
+                <ArrowLeft size={18} /> Volver al inicio
+            </Link>
+
+            {/* Notificación del Easter Egg */}
+            <div className={`toast-notification ${secretUnlocked ? 'show' : ''}`}>
+                [SISTEMA] Protocolo activado: Conexion 100% fibra, 0% humo.
+            </div>
+
             <div className="login-card">
                 <div className="brand-header">
                     <div className="brand-icon"><Wifi size={28} /></div>

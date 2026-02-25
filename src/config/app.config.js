@@ -15,7 +15,7 @@ export const AppConfig = {
     
     // Redes Sociales (Para el footer de la landing page)
     socialLinks: {
-        facebook: "https://facebook.com/tu-pagina",
+        facebook: "https://www.facebook.com/gabaal2021",
         whatsapp: "https://wa.me/529999999999"
     },
 
