@@ -1,0 +1,197 @@
+.perfil-v2-wrapper {
+  .page-content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+
+    @media (max-width: 600px) {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  /* ENCABEZADO */
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    animation: up 0.4s ease both;
+
+    .back-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 10px;
+      border: 1px solid var(--border-miranda); background: var(--white-miranda);
+      cursor: pointer; color: var(--muted-miranda); transition: all 0.15s;
+      
+      &:hover { background: var(--bg-miranda); color: var(--text-miranda); border-color: var(--muted-miranda); }
+    }
+
+    .page-title {
+      font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-miranda); margin: 0;
+    }
+  }
+
+  /* PROFILE HERO */
+  .profile-hero {
+    background: var(--white-miranda);
+    border: 1px solid var(--border-miranda);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+    animation: up 0.4s 0.05s ease both;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  .avatar-big {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-miranda), #3b82f6);
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
+    border: 3px solid var(--surface-2-miranda, #eff4ff);
+  }
+
+  .profile-info {
+    h2 {
+      font-size: 1.35rem; font-weight: 800; color: var(--text-miranda);
+      letter-spacing: -0.02em; margin: 0 0 0.25rem 0;
+    }
+    p {
+      font-size: 0.83rem; color: var(--muted-miranda); margin-bottom: 0.8rem; font-weight: 500;
+    }
+  }
+
+  .profile-tags {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    @media (max-width: 600px) { justify-content: center; }
+  }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.72rem; font-weight: 700;
+    padding: 0.25rem 0.65rem; border-radius: 20px;
+    
+    &.green { background: var(--green-bg); color: var(--green-main); }
+    &.red { background: var(--red-bg); color: var(--red-main); }
+    &.blue { background: rgba(29, 78, 216, 0.1); color: var(--accent-miranda); }
+    &.gray { background: var(--bg-miranda); color: var(--muted-miranda); border: 1px solid var(--border-miranda); }
+
+    .tag-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  }
+
+  /* SECTION CARD */
+  .scard {
+    background: var(--white-miranda);
+    border: 1px solid var(--border-miranda);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+
+  .scard-header {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--border-miranda);
+    background: var(--surface-2-miranda, #f9f7f4);
+
+    .scard-header-icon { color: var(--muted-miranda); display: flex; align-items: center; }
+    .scard-header-title { font-size: 0.875rem; font-weight: 700; color: var(--text-miranda); }
+  }
+
+  .scard-body { padding: 1.75rem; }
+
+  /* FORMULARIOS */
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    @media (max-width: 600px) { grid-template-columns: 1fr; }
+  }
+
+  .form-group {
+    display: flex; flex-direction: column; gap: 0.45rem;
+    &.full { grid-column: 1 / -1; }
+
+    label { font-size: 0.78rem; font-weight: 700; color: var(--text-miranda); letter-spacing: 0.01em; }
+    .field-note { font-size: 0.7rem; color: var(--muted-miranda); font-weight: 500; margin-left: 0.3rem; }
+
+    input {
+      width: 100%; padding: 0.7rem 0.9rem;
+      border: 1px solid var(--border-miranda); border-radius: 10px;
+      font-family: inherit; font-size: 0.875rem; font-weight: 500;
+      color: var(--text-miranda); background: var(--white-miranda);
+      transition: border-color 0.15s, box-shadow 0.15s; outline: none;
+
+      &:focus { border-color: var(--accent-miranda); box-shadow: 0 0 0 3px rgba(29,78,216,0.1); }
+      &:disabled, &[readonly] { background: var(--bg-miranda); color: var(--muted-miranda); cursor: not-allowed; opacity: 0.8;}
+      &::placeholder { color: var(--muted-miranda); opacity: 0.6; }
+    }
+  }
+
+  .input-wrap {
+    position: relative;
+    input { padding-right: 2.5rem; }
+    
+    .input-eye {
+      position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+      cursor: pointer; color: var(--muted-miranda); display: flex; align-items: center;
+      &:hover { color: var(--text-miranda); }
+    }
+  }
+
+  /* MEDIDOR DE CONTRASEÑA */
+  .pw-strength {
+    display: flex; gap: 4px; margin-top: 0.4rem;
+    
+    .pw-bar {
+      flex: 1; height: 3px; border-radius: 3px;
+      background: var(--border-miranda); transition: background 0.3s;
+      &.active.weak { background: var(--red-main); }
+      &.active.medium { background: #f59e0b; }
+      &.active.strong { background: var(--green-main); }
+    }
+  }
+
+  .pw-label {
+    font-size: 0.7rem; font-weight: 600; margin-top: 0.3rem;
+  }
+
+  /* BOTONES DE ACCIÓN */
+  .form-actions {
+    display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem;
+    padding: 1.25rem 1.75rem; border-top: 1px solid var(--border-miranda);
+    background: var(--surface-2-miranda, #f9f7f4);
+
+    @media (max-width: 600px) {
+      flex-direction: column-reverse;
+      button { width: 100%; }
+    }
+
+    button {
+      padding: 0.65rem 1.4rem; border-radius: 10px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: all 0.15s;
+
+      &.btn-secondary {
+        border: 1px solid var(--border-miranda); background: var(--white-miranda); color: var(--muted-miranda);
+        &:hover:not(:disabled) { background: var(--bg-miranda); color: var(--text-miranda); }
+      }
+
+      &.btn-primary {
+        background: var(--accent-miranda); color: white; border: none;
+        &:hover:not(:disabled) { filter: brightness(0.9); transform: translateY(-1px); }
+        &:active:not(:disabled) { transform: translateY(0); }
+      }
+      
+      &:disabled { opacity: 0.5; cursor: not-allowed; }
+    }
+  }
+}

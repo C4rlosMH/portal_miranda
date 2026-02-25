@@ -1,0 +1,198 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  .modal-chat-content {
+    background: var(--white-miranda);
+    border: 1px solid var(--border-miranda);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    height: 85vh;
+    max-height: 800px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    animation: up 0.3s ease;
+
+    .chat-header {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border-miranda);
+      background: var(--surface-2-miranda, #f9f7f4);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .chat-title-area {
+        .ticket-asunto {
+          font-size: 1.15rem;
+          font-weight: 800;
+          color: var(--text-miranda);
+          margin: 0 0 0.25rem 0;
+        }
+        .ticket-meta {
+          font-size: 0.8rem;
+          color: var(--muted-miranda);
+          font-weight: 500;
+        }
+      }
+
+      .close-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        border: 1px solid var(--border-miranda);
+        background: var(--white-miranda);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--muted-miranda);
+        transition: all 0.15s;
+        &:hover {
+          background: var(--bg-miranda);
+          color: var(--text-miranda);
+        }
+      }
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 1.5rem 1.75rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      background: var(--bg-miranda);
+
+      .descripcion-original {
+        background: var(--white-miranda);
+        padding: 1.25rem;
+        border-radius: 16px;
+        border: 1px solid var(--border-miranda);
+
+        .desc-label {
+          font-size: 0.7rem;
+          font-weight: 700;
+          color: var(--muted-miranda);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 0.5rem;
+        }
+        .desc-text {
+          font-size: 0.875rem;
+          color: var(--text-miranda);
+          line-height: 1.6;
+        }
+      }
+
+      .mensaje-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 85%;
+
+        &.align-right {
+          align-self: flex-end;
+          align-items: flex-end;
+        }
+        &.align-left {
+          align-self: flex-start;
+          align-items: flex-start;
+        }
+
+        .mensaje-burbuja {
+          padding: 0.85rem 1.1rem;
+          border-radius: 16px;
+          font-size: 0.875rem;
+          line-height: 1.5;
+        }
+
+        .burbuja-cliente {
+          background: var(--accent-miranda);
+          color: white;
+          border-bottom-right-radius: 4px;
+        }
+
+        .burbuja-admin {
+          background: var(--white-miranda);
+          color: var(--text-miranda);
+          border: 1px solid var(--border-miranda);
+          border-bottom-left-radius: 4px;
+        }
+
+        .mensaje-fecha {
+          font-size: 0.7rem;
+          color: var(--muted-miranda);
+          margin-top: 0.35rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .chat-footer {
+      padding: 1.25rem 1.75rem;
+      border-top: 1px solid var(--border-miranda);
+      background: var(--surface-2-miranda, #f9f7f4);
+
+      form {
+        display: flex;
+        gap: 0.75rem;
+
+        input {
+          flex: 1;
+          padding: 0.85rem 1.25rem;
+          border-radius: 99px;
+          border: 1px solid var(--border-miranda);
+          background: var(--white-miranda);
+          color: var(--text-miranda);
+          font-family: inherit;
+          font-size: 0.875rem;
+          font-weight: 500;
+          transition: border-color 0.15s;
+          &:focus {
+            outline: none;
+            border-color: var(--accent-miranda);
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.08);
+          }
+          &::placeholder {
+            color: var(--muted-miranda);
+            opacity: 0.7;
+          }
+        }
+
+        .btn-enviar {
+          background: var(--accent-miranda);
+          color: white;
+          border: none;
+          padding: 0 1.5rem;
+          border-radius: 99px;
+          font-family: inherit;
+          font-weight: 700;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: all 0.15s;
+          &:hover:not(:disabled) {
+            filter: brightness(0.9);
+            transform: translateY(-1px);
+          }
+          &:active:not(:disabled) {
+            transform: translateY(0);
+          }
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+          }
+        }
+      }
+    }
+  }
+}
