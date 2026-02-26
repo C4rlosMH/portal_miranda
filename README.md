@@ -74,7 +74,6 @@ La aplicación estará disponible en `http://localhost:5173`.
 
 ## Estructura del Proyecto
 
-\`\`\`text
 src/
 ├── api/             # Configuración de Axios e interceptores
 ├── assets/          # Imágenes, logos y recursos estáticos
@@ -88,7 +87,6 @@ src/
 │   ├── portal/      # Dashboard, Soporte, Pagos, Perfil (Rutas protegidas)
 │   └── public/      # Landing, Planes, Contacto (Rutas públicas)
 └── styles/          # Archivos SCSS globales
-\`\`\`
 
 ---
 
