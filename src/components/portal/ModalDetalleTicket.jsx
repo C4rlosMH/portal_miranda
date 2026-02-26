@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, Send } from 'lucide-react';
+import { X, Send, Star, CheckCircle } from 'lucide-react';
 import api from '../../api/axios';
 import { AppConfig } from '../../config/app.config';
 import './styles/ModalDetalleTicket.scss';
@@ -10,6 +10,13 @@ export const ModalDetalleTicket = ({ isOpen, onClose, ticket }) => {
     const [isSending, setIsSending] = useState(false);
     const [loadingMsg, setLoadingMsg] = useState(false);
     
+    // --- ESTADOS PARA LA CALIFICACIÓN ---
+    const [rating, setRating] = useState(0);
+    const [hoverRating, setHoverRating] = useState(0);
+    const [comentarioCalificacion, setComentarioCalificacion] = useState("");
+    const [isSubmittingRating, setIsSubmittingRating] = useState(false);
+    const [calificacionEnviada, setCalificacionEnviada] = useState(false);
+
     const mensajesEndRef = useRef(null);
 
     const formatTime = (dateString) => {
@@ -34,8 +41,14 @@ export const ModalDetalleTicket = ({ isOpen, onClose, ticket }) => {
     useEffect(() => {
         if (isOpen && ticket) {
             fetchMensajes();
+            // Cargar datos de calificación si ya existen
+            setCalificacionEnviada(!!ticket.calificacion);
+            setRating(ticket.calificacion || 0);
+            setComentarioCalificacion(ticket.comentario_calificacion || "");
         } else {
             setMensajes([]);
+            setRating(0);
+            setComentarioCalificacion("");
         }
     }, [isOpen, ticket]);
 
@@ -63,7 +76,27 @@ export const ModalDetalleTicket = ({ isOpen, onClose, ticket }) => {
         }
     };
 
+    // --- FUNCIÓN PARA ENVIAR CALIFICACIÓN ---
+    const handleSubmitRating = async () => {
+        if (rating < 1 || rating > 5) return;
+        setIsSubmittingRating(true);
+        try {
+            // Asegúrate de que esta ruta exista en tu backend para el portal del cliente
+            await api.put(`/portal/tickets/${ticket.id}/calificar`, {
+                calificacion: rating,
+                comentario: comentarioCalificacion
+            });
+            setCalificacionEnviada(true);
+        } catch (error) {
+            console.error("Error al calificar", error);
+        } finally {
+            setIsSubmittingRating(false);
+        }
+    };
+
     if (!isOpen || !ticket) return null;
+
+    const estaCerrado = ticket.estado === 'CERRADO' || ticket.estado === 'RESUELTO';
 
     return (
         <div className="modal-overlay">
@@ -102,6 +135,76 @@ export const ModalDetalleTicket = ({ isOpen, onClose, ticket }) => {
                             </div>
                         );
                     })}
+
+                    {/* --- CAJA DE SOLUCIÓN DEL ADMINISTRADOR --- */}
+                    {estaCerrado && ticket.solucion && (
+                        <div className="solucion-admin-box">
+                            <div className="solucion-header">
+                                <CheckCircle size={16} /> Solución aplicada
+                            </div>
+                            <div className="solucion-text">{ticket.solucion}</div>
+                        </div>
+                    )}
+
+                    {/* --- SISTEMA DE CALIFICACIÓN --- */}
+                    {estaCerrado && (
+                        <div className="calificacion-box">
+                            {!calificacionEnviada ? (
+                                <div className="calificacion-prompt">
+                                    <h4>¿Qué te pareció nuestro servicio?</h4>
+                                    <p>Tu opinión nos ayuda a mejorar.</p>
+                                    
+                                    <div className="stars-container">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <Star 
+                                                key={star}
+                                                size={32}
+                                                className={`star-icon ${star <= (hoverRating || rating) ? 'active' : ''}`}
+                                                onMouseEnter={() => setHoverRating(star)}
+                                                onMouseLeave={() => setHoverRating(0)}
+                                                onClick={() => setRating(star)}
+                                            />
+                                        ))}
+                                    </div>
+
+                                    {rating > 0 && (
+                                        <div className="calificacion-form fade-in">
+                                            <textarea 
+                                                placeholder="Cuéntanos más sobre tu experiencia (opcional)..."
+                                                value={comentarioCalificacion}
+                                                onChange={(e) => setComentarioCalificacion(e.target.value)}
+                                                rows="3"
+                                            />
+                                            <button 
+                                                className="btn-enviar-calificacion" 
+                                                onClick={handleSubmitRating} 
+                                                disabled={isSubmittingRating}
+                                            >
+                                                {isSubmittingRating ? 'Enviando...' : 'Enviar calificación'}
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="calificacion-gracias">
+                                    <h4>¡Gracias por tu valoración!</h4>
+                                    <div className="stars-display">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <Star 
+                                                key={star}
+                                                size={20}
+                                                className={`star-icon ${star <= rating ? 'active' : ''}`}
+                                            />
+                                        ))}
+                                    </div>
+                                    {comentarioCalificacion && (
+                                        <p className="comentario-dejado">"{comentarioCalificacion}"</p>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
                     <div ref={mensajesEndRef} />
                 </div>
 
@@ -109,7 +212,7 @@ export const ModalDetalleTicket = ({ isOpen, onClose, ticket }) => {
                     <form onSubmit={handleSend}>
                         <input 
                             type="text" 
-                            placeholder={ticket.estado === 'CERRADO' || ticket.estado === 'RESUELTO' ? "Escribe para reabrir el ticket..." : "Escribe una respuesta..."}
+                            placeholder={estaCerrado ? "Escribe para reabrir el ticket..." : "Escribe una respuesta..."}
                             value={nuevoMensaje}
                             onChange={(e) => setNuevoMensaje(e.target.value)}
                             disabled={isSending}

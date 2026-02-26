@@ -165,15 +165,20 @@ export const Soporte = () => {
                         <>
                             {currentTickets.map(ticket => {
                                 const ui = getEstadoUI(ticket.estado);
+                                const isUnread = ticket.tiene_mensajes_nuevos; // Leemos la novedad
+
                                 return (
-                                    <div key={ticket.id} className={`ticket-card ${ui.clase}`} onClick={() => setTicketSeleccionado(ticket)}>
+                                    <div key={ticket.id} className={`ticket-card ${ui.clase} ${isUnread ? 'unread-ticket' : ''}`} onClick={() => setTicketSeleccionado(ticket)}>
                                         <div className="ticket-main">
                                             <div className="ticket-icon">
                                                 {getIconoCategoria(ticket.categoria)}
                                             </div>
                                             <div className="ticket-body">
                                                 <div className="ticket-top">
-                                                    <div className="ticket-title">{ticket.asunto}</div>
+                                                    <div className="ticket-title">
+                                                        {isUnread && <span className="dot-new-client" title="Nuevo mensaje del equipo de soporte"></span>}
+                                                        {ticket.asunto}
+                                                    </div>
                                                     <span className={`badge ${ui.clase}`}>
                                                         <span className="badge-dot"></span>{ui.texto}
                                                     </span>
@@ -183,14 +188,16 @@ export const Soporte = () => {
                                                     <span className="meta-sep">·</span>
                                                     <span>{formatDate(ticket.fecha_creacion)}</span>
                                                 </div>
-                                                <div className="ticket-preview">{ticket.descripcion}</div>
+                                                <div className="ticket-preview">
+                                                    {isUnread ? <strong style={{color: '#2563eb'}}>¡Tienes una nueva respuesta!</strong> : ticket.descripcion}
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="ticket-footer">
                                             <div className="ticket-footer-left">
                                                 <span className="ticket-id">#{String(ticket.id).padStart(4, '0')}</span>
                                                 {ticket.estado !== 'RESUELTO' && ticket.estado !== 'CERRADO' && (
-                                                    <span>Última actualización: {formatDate(ticket.fecha_actualizacion || ticket.fecha_creacion)}</span>
+                                                    <span>Última actividad: {formatDate(ticket.fecha_actividad || ticket.fecha_actualizacion || ticket.fecha_creacion)}</span>
                                                 )}
                                                 {(ticket.estado === 'RESUELTO' || ticket.estado === 'CERRADO') && (
                                                     <span>Cerrado el {formatDate(ticket.fecha_actualizacion)}</span>

@@ -196,3 +196,148 @@
     }
   }
 }
+
+/* --- CAJA DE SOLUCIÓN DEL ADMIN --- */
+.solucion-admin-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: rgba(16, 185, 129, 0.05); /* Verde muy transparente */
+    border-left: 4px solid #10b981;
+    border-radius: 6px;
+
+    .solucion-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #10b981;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .solucion-text {
+        color: #334155; /* Gris oscuro */
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+}
+
+/* --- SISTEMA DE CALIFICACIÓN --- */
+.calificacion-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #ffffff; /* Fondo blanco sólido */
+    border: 1px solid #e2e8f0; /* Borde gris claro */
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+    h4 {
+        margin: 0 0 0.5rem 0;
+        color: #1e293b; /* Texto oscuro principal */
+        font-size: 1.1rem;
+    }
+
+    p {
+        color: #64748b; /* Texto secundario gris */
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .stars-container {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        .star-icon {
+            color: #cbd5e1; /* Color estrella inactiva */
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &.active {
+                color: #f59e0b; /* Naranja/Amarillo activo */
+                fill: #f59e0b;
+                transform: scale(1.1);
+            }
+
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    .calificacion-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        animation: fadeIn 0.3s ease-in;
+
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1; /* Borde gris */
+            background-color: #f8fafc; /* Fondo gris súper claro */
+            color: #334155;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+
+            &:focus {
+                border-color: #2563eb; /* Borde azul al escribir */
+            }
+        }
+
+        .btn-enviar-calificacion {
+            background-color: #2563eb; /* Azul sólido (Color principal) */
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+
+            &:hover:not(:disabled) {
+                background-color: #1d4ed8; /* Azul más oscuro al pasar el mouse */
+            }
+
+            &:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .calificacion-gracias {
+        .stars-display {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin: 1rem 0;
+
+            .star-icon {
+                color: #cbd5e1;
+                &.active {
+                    color: #f59e0b;
+                    fill: #f59e0b;
+                }
+            }
+        }
+
+        .comentario-dejado {
+            font-style: italic;
+            color: #475569;
+            background: #f1f5f9;
+            padding: 0.75rem;
+            border-radius: 6px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
