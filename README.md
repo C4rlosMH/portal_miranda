@@ -83,7 +83,6 @@ La aplicación estará disponible en `http://localhost:5173`.
 ## Estructura del Proyecto
 
 src/
-<<<<<<< HEAD
 ├── api/             # Configuración de Axios e interceptores
 ├── assets/          # Imágenes, logos y recursos estáticos
 ├── components/      # Componentes reutilizables (Modales, Navbars, etc.)
@@ -96,21 +95,6 @@ src/
 │   ├── portal/      # Dashboard, Soporte, Pagos, Perfil (Rutas protegidas)
 │   └── public/      # Landing, Planes, Contacto (Rutas públicas)
 └── styles/          # Archivos SCSS globales
-=======
-├── api/            # Configuración de Axios e interceptores
-├── assets/         # Imágenes, logos y recursos estáticos
-├── components/     # Componentes reutilizables (Modales, Navbars, etc.)
-│   ├── portal/     # Componentes específicos del área privada
-│   └── public/     # Componentes de las vistas públicas
-├── config/         # Variables de configuración global (Moneda, Locale)
-├── context/        # Contextos de React (AuthContext)
-├── hooks/          # Custom Hooks (useTheme, etc.)
-├── pages/          # Vistas principales de la aplicación
-│   ├── portal/     # Dashboard, Soporte, Pagos, Perfil (Rutas protegidas)
-│   └── public/     # Landing, Planes, Contacto (Rutas públicas)
-└── styles/         # Archivos SCSS globales
-
->>>>>>> ff273f9 (se edita el readme)
 
 ---
 
