@@ -9,14 +9,14 @@ export const AppConfig = {
     locale: "es-MX",
     
     // Datos de Contacto Publicos
-    supportPhone: "934-110-1635", // Cambiar por el real
-    whatsappNumber: "529341101635",
-    supportEmail: "soporte@mirandanet.com",
+    supportPhone: import.meta.env.VITE_SUPPORT_PHONE, 
+    whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER,
+    supportEmail: import.meta.env.VITE_SUPPORT_EMAIL,
     
     // Redes Sociales (Para el footer de la landing page)
     socialLinks: {
-        facebook: "https://www.facebook.com/gabaal2021",
-        whatsapp: "https://wa.me/529999999999"
+        facebook: import.meta.env.VITE_FACEBOOK_URL,
+        whatsapp: import.meta.env.VITE_WHATSAPP_URL
     },
 
     // Configuracion de UI

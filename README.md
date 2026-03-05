@@ -19,7 +19,6 @@ Como parte de la **Versión 3.0** del ecosistema Miranda Net, este portal empode
 * **Comunicación Bidireccional:** Chat integrado en cada ticket para dialogar con el equipo de soporte.
 * **Notificaciones de Actividad:** Indicadores visuales automáticos cuando el soporte responde un ticket abierto.
 * **Calificación de Servicio:** Sistema de valoración de 1 a 5 estrellas y feedback escrito al cerrar un ticket.
-* **Diagnóstico de Red (Ping):** Herramienta que hace un ping directo a la IP (Mikrotik) del cliente para verificar la conectividad del router.
 
 ### Gestión de Cuenta
 * Dashboard interactivo con el estado financiero actual del suscriptor.
@@ -48,8 +47,11 @@ Sigue estos pasos para levantar el entorno de desarrollo local:
 
 ### 1. Clonar el repositorio
 \`\`\`bash
+
 git clone https://github.com/tu-usuario/portal_miranda.git
+
 cd portal_miranda
+
 \`\`\`
 
 ### 2. Instalar dependencias
@@ -60,14 +62,20 @@ npm install
 
 ### 3. Variables de Entorno
 Crea un archivo `.env` en la raíz del proyecto basándote en el archivo de ejemplo (si existe) o configura la URL de tu backend:
+
 \`\`\`env
+
 VITE_API_URL=http://localhost:3000/api  #colocar la direccion del backend
+
 \`\`\`
 
 ### 4. Ejecutar el servidor de desarrollo
 \`\`\`bash
+
 npm run dev
+
 \`\`\`
+
 La aplicación estará disponible en `http://localhost:5173`.
 
 ---
@@ -75,6 +83,7 @@ La aplicación estará disponible en `http://localhost:5173`.
 ## Estructura del Proyecto
 
 src/
+<<<<<<< HEAD
 ├── api/             # Configuración de Axios e interceptores
 ├── assets/          # Imágenes, logos y recursos estáticos
 ├── components/      # Componentes reutilizables (Modales, Navbars, etc.)
@@ -87,6 +96,21 @@ src/
 │   ├── portal/      # Dashboard, Soporte, Pagos, Perfil (Rutas protegidas)
 │   └── public/      # Landing, Planes, Contacto (Rutas públicas)
 └── styles/          # Archivos SCSS globales
+=======
+├── api/            # Configuración de Axios e interceptores
+├── assets/         # Imágenes, logos y recursos estáticos
+├── components/     # Componentes reutilizables (Modales, Navbars, etc.)
+│   ├── portal/     # Componentes específicos del área privada
+│   └── public/     # Componentes de las vistas públicas
+├── config/         # Variables de configuración global (Moneda, Locale)
+├── context/        # Contextos de React (AuthContext)
+├── hooks/          # Custom Hooks (useTheme, etc.)
+├── pages/          # Vistas principales de la aplicación
+│   ├── portal/     # Dashboard, Soporte, Pagos, Perfil (Rutas protegidas)
+│   └── public/     # Landing, Planes, Contacto (Rutas públicas)
+└── styles/         # Archivos SCSS globales
+
+>>>>>>> ff273f9 (se edita el readme)
 
 ---
 
